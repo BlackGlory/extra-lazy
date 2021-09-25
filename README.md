@@ -1,4 +1,5 @@
 # extra-lazy
+Yet another lazy evaluation library.
 
 ## Install
 
@@ -28,6 +29,11 @@ const value = getValue()
 function lazy<T>(getter: () => T): () => T
 ```
 
+Create a value lazily.
+
+which implicitly has memoization,
+because the evaluation will only be performed once.
+
 ### lazyFunction
 
 ```ts
@@ -35,3 +41,5 @@ function lazyFunction<Result, Args extends any[]>(
   getter: () => (...args: Args) => Result
 ): (...args: Args) => Result
 ```
+
+Create a function lazily.
