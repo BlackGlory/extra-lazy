@@ -1,5 +1,12 @@
-import once from 'lodash/once'
-
 export function lazy<T>(getter: () => T): () => T {
-  return once(getter)
+  let resultExists = false
+  let result: T
+
+  return function () {
+    if (!resultExists) {
+      result = getter()
+      resultExists = true
+    }
+    return result
+  }
 }
