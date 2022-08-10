@@ -50,4 +50,39 @@ describe('lazyStatic', () => {
 
     expect(err).toBeInstanceOf(Error)
   })
+
+  describe('deps', () => {
+    it('does not re-run getter if deps are same', () => {
+      const getter = jest.fn(text => text)
+      const obj = {}
+      const deps = [obj]
+      const fn = jest.fn((text: string) => lazyStatic(() => getter(text), deps))
+
+      const newFn = withLazyStatic(fn)
+      const result1 = newFn('hello')
+      const result2 = newFn('world')
+
+      expect(fn).toBeCalledTimes(2)
+      expect(getter).toBeCalledTimes(1)
+      expect(result1).toBe('hello')
+      expect(result2).toBe('hello')
+    })
+
+    it('re-runs getter if deps are different', () => {
+      const getter = jest.fn(text => text)
+      const obj = {}
+      const deps = [obj]
+      const fn = jest.fn((text: string) => lazyStatic(() => getter(text), deps))
+
+      const newFn = withLazyStatic(fn)
+      const result1 = newFn('hello')
+      deps[0] = {}
+      const result2 = newFn('world')
+
+      expect(fn).toBeCalledTimes(2)
+      expect(getter).toBeCalledTimes(2)
+      expect(result1).toBe('hello')
+      expect(result2).toBe('world')
+    })
+  })
 })

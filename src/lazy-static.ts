@@ -1,9 +1,14 @@
+interface IStaticCache {
+  value: unknown
+  deps: unknown[]
+}
+
 interface IContext {
-  cache: unknown[]
+  cache: IStaticCache[]
   index: number
 }
 
-const contexts: Array<IContext> = []
+const contexts: IContext[] = []
 
 /**
  * @param fn
@@ -24,7 +29,7 @@ export function withLazyStatic<
   Result
 , Args extends any[]
 >(fn: (...args: Args) => Result): (...args: Args) => Result {
-  const cache: unknown[] = []
+  const cache: IStaticCache[] = []
 
   return (...args) => {
     contexts.push({ cache, index: 0 })
@@ -36,17 +41,35 @@ export function withLazyStatic<
   }
 }
 
-export function lazyStatic<T>(getter: () => T): T {
+export function lazyStatic<T>(getter: () => T, deps: unknown[] = []): T {
   if (contexts.length) {
     const context = contexts[contexts.length - 1]
 
     if (context.index === context.cache.length) {
-      context.cache.push(getter())
+      // 首次运行
+      updateCache()
+    } else {
+      // 非首次运行
+      const oldDeps = context.cache[context.index].deps
+      if (deps.length === oldDeps.length) {
+        if (deps.some((x, i) => x !== oldDeps[i])) {
+          updateCache()
+        }
+      } else {
+        updateCache()
+      }
     }
 
-    const result = context.cache[context.index] as T
+    const result = context.cache[context.index].value as T
     context.index++
     return result
+
+    function updateCache() {
+      context.cache[context.index] = {
+        value: getter()
+      , deps: Array.from(deps)
+      }
+    }
   } else {
     throw new Error('lazyStatic can only be called in the function wrapped by withlazyStatic.')
   }

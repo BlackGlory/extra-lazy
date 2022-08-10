@@ -10,6 +10,7 @@ module.exports = {
   ]
 , rules: {
     'no-constant-condition': 'off'
+  , 'no-inner-declarations': 'off'
   , 'require-yield': 'off'
   , '@typescript-eslint/no-inferrable-types': 'off'
   , '@typescript-eslint/ban-types': 'off'

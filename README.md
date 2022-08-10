@@ -50,7 +50,10 @@ Create a async function lazily.
 
 ### lazyStatic
 ```ts
-function lazyStatic<T>(getter: () => T): T
+function lazyStatic<T>(
+  getter: () => T
+, deps?: unknown[] = []
+): T
 
 /**
  * @param fn
