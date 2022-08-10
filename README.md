@@ -47,3 +47,26 @@ function lazyAsyncFunction<Result, Args extends any[]>(
 ```
 
 Create a async function lazily.
+
+### lazyStatic
+```ts
+function lazyStatic<T>(getter: () => T): T
+
+/**
+ * @param fn
+ * The function must satisfy the following conditions, it's like React hooks very much:
+ * - The function should not be an async function,
+ *   it is impossible to ensure that `lazyStatic` works correctly in asynchronous flows.
+ * - `lazyStatic` calls should not be in loops or branches.
+ */
+function withLazyStatic<Result, Args extends any[]>(
+  fn: (...args: Args) => Result
+): (...args: Args) => Result
+```
+
+```ts
+const fn = withLazyStatic((text: string) => lazyStatic(() => text))
+
+fn('hello') // 'hello'
+fn('world') // 'hello'
+```
