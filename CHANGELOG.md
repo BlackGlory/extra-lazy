@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.1](https://github.com/BlackGlory/extra-lazy/compare/v1.3.0...v1.3.1) (2022-08-11)
+
+
+### Bug Fixes
+
+* nested calls for lazyStatic ([e8fbcb7](https://github.com/BlackGlory/extra-lazy/commit/e8fbcb7e3f246644ff4be66b107ca6914f86622a))
+
 ## [1.3.0](https://github.com/BlackGlory/extra-lazy/compare/v1.2.0...v1.3.0) (2022-08-10)
 
 
