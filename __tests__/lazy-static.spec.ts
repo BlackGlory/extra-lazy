@@ -63,6 +63,36 @@ describe('lazyStatic', () => {
     expect(result2).toBe('hello world')
   })
 
+  describe('assertion/validation', () => {
+    test('case 1', () => {
+      const fn = withLazyStatic((num: number) => {
+        if (num % 2 === 0) return null
+
+        return lazyStatic(() => num)
+      })
+
+      const result1 = fn(1)
+      const result2 = fn(2)
+
+      expect(result1).toBe(1)
+      expect(result2).toBe(null)
+    })
+
+    test('case 2', () => {
+      const fn = withLazyStatic((num: number) => {
+        if (num % 2 === 0) return null
+
+        return lazyStatic(() => num)
+      })
+
+      const result1 = fn(2)
+      const result2 = fn(1)
+
+      expect(result1).toBe(null)
+      expect(result2).toBe(1)
+    })
+  })
+
   test('throws Error when `lazyStatic` is called outside `withLazyStatic`', () => {
     const getter = () => {}
 
