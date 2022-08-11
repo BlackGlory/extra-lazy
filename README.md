@@ -60,7 +60,7 @@ function lazyStatic<T>(
  * The function must satisfy the following conditions, it's like React hooks very much:
  * - The function should not be an async function,
  *   it is impossible to ensure that `lazyStatic` works correctly in asynchronous flows.
- * - `lazyStatic` calls should not be in loops or branches that do not immediately end with an error.
+ * - `lazyStatic` calls should not be in loops or branches.
  */
 function withLazyStatic<Result, Args extends any[]>(
   fn: (...args: Args) => Result
@@ -128,7 +128,7 @@ withLazyStatic(() => {
 })
 ```
 
-###### Assertion
+###### Assertion/Validation
 ``` ts
 // bad
 withLazyStatic((form: IForm) => {
@@ -138,11 +138,14 @@ withLazyStatic((form: IForm) => {
     })
     // ...
   } else {
-    return null
+    const value = lazyStatic(() => {
+      // ...
+    })
+    return null // or throw an error
   }
 })
 
-// even worse
+// okay
 withLazyStatic((form: IForm) => {
   if (validate(form)) {
     const value = lazyStatic(() => {
@@ -150,29 +153,13 @@ withLazyStatic((form: IForm) => {
     })
     // ...
   } else {
-    const value = lazyStatic(() => {
-      // ...
-    })
-    // ...
-    throw new Error('Invalid user input')
+    return null // or throw an error
   }
 })
 
-// good, the branch immediately ends with an error
+// good, `lazyStatic` can always be called after guards
 withLazyStatic((form: IForm) => {
-  if (validate(form)) {
-    const value = lazyStatic(() => {
-      // ...
-    })
-    // ...
-  } else {
-    throw new Error('Invalid user input')
-  }
-})
-
-// the best practice, `lazyStatic` can always be called after guards
-withLazyStatic((form: IForm) => {
-  assert(validate(form), 'Invalid user input')
+  if (!validate(form)) return null // or throw an error
 
   const value = lazyStatic(() => {
     // ...
