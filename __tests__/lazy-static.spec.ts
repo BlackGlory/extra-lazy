@@ -2,7 +2,7 @@ import { lazyStatic, withLazyStatic } from '@src/lazy-static'
 import { getError } from 'return-style'
 
 describe('lazyStatic', () => {
-  test('lazy', () => {
+  test('multiple lazyStatic calls', () => {
     const getter1 = jest.fn(text => text)
     const getter2 = jest.fn(text => text)
     const fn = jest.fn((text1: string, text2) => {
@@ -22,7 +22,27 @@ describe('lazyStatic', () => {
     expect(result2).toBe('hello world')
   })
 
-  test('nested', () => {
+  test('nested lazyStatic calls', () => {
+    const getter1 = jest.fn(text => text)
+    const getter2 = jest.fn(text => text)
+    const fn = jest.fn((text: string) => {
+      return lazyStatic(() => getter2(lazyStatic(() => getter1(text)).repeat(2)))
+    })
+
+    const newFn = withLazyStatic(fn)
+    const result1 = newFn('hello')
+    const result2 = newFn('world')
+
+    expect(fn).toBeCalledTimes(2)
+    expect(getter1).toBeCalledTimes(1)
+    expect(getter2).toBeCalledTimes(1)
+    expect(getter1).toBeCalledWith('hello')
+    expect(getter2).toBeCalledWith('hellohello')
+    expect(result1).toBe('hellohello')
+    expect(result2).toBe('hellohello')
+  })
+
+  test('switch contexts', () => {
     const getter1 = jest.fn(text => text)
     const getter2 = jest.fn(text => text)
     const fn1 = jest.fn((text1: string, text2: string) => {

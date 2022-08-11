@@ -4,7 +4,7 @@ interface IStaticCache {
 }
 
 interface IContext {
-  cache: IStaticCache[]
+  cache: Array<IStaticCache | null>
   index: number
 }
 
@@ -44,13 +44,14 @@ export function withLazyStatic<
 export function lazyStatic<T>(getter: () => T, deps: unknown[] = []): T {
   if (contexts.length) {
     const context = contexts[contexts.length - 1]
+    // 自增context.index, 从而确保嵌套在getter里的lazyStatic能够正确工作
+    const index = context.index++
+    const isFirstRun = index === context.cache.length
 
-    if (context.index === context.cache.length) {
-      // 首次运行
+    if (isFirstRun) {
       updateCache()
     } else {
-      // 非首次运行
-      const oldDeps = context.cache[context.index].deps
+      const oldDeps = context.cache[index]!.deps
       if (deps.length === oldDeps.length) {
         if (deps.some((x, i) => x !== oldDeps[i])) {
           updateCache()
@@ -60,12 +61,13 @@ export function lazyStatic<T>(getter: () => T, deps: unknown[] = []): T {
       }
     }
 
-    const result = context.cache[context.index].value as T
-    context.index++
+    const result = context.cache[index]!.value as T
     return result
 
-    function updateCache() {
-      context.cache[context.index] = {
+    function updateCache(): void {
+      // 填充缓存, 从而确保getter里的lazyStatic能够正确工作
+      context.cache[index] = null
+      context.cache[index] = {
         value: getter()
       , deps: Array.from(deps)
       }
