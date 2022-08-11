@@ -73,9 +73,13 @@ describe('lazyStatic', () => {
 
       const result1 = fn(1)
       const result2 = fn(2)
+      const result3 = fn(1)
+      const result4 = fn(2)
 
       expect(result1).toBe(1)
       expect(result2).toBe(null)
+      expect(result3).toBe(1)
+      expect(result4).toBe(null)
     })
 
     test('case 2', () => {
@@ -87,9 +91,13 @@ describe('lazyStatic', () => {
 
       const result1 = fn(2)
       const result2 = fn(1)
+      const result3 = fn(2)
+      const result4 = fn(1)
 
       expect(result1).toBe(null)
       expect(result2).toBe(1)
+      expect(result3).toBe(null)
+      expect(result4).toBe(1)
     })
   })
 
