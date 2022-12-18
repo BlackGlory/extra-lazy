@@ -1,5 +1,4 @@
 import { lazy } from '@src/lazy'
-import 'jest-extended'
 
 test('lazy<T>(getter: () => T): () => T', () => {
   const value = 'value'
@@ -10,7 +9,6 @@ test('lazy<T>(getter: () => T): () => T', () => {
   const result1 = getValue()
   const result2 = getValue()
 
-  expect(getValue).toBeFunction()
   expect(result1).toBe(value)
   expect(result2).toBe(value)
   expect(getter).toBeCalledTimes(1)

@@ -1,5 +1,4 @@
 import { lazyFunction } from '@src/lazy-function'
-import 'jest-extended'
 
 test(`
   lazyFunction<Result, Args extends any[]>(
@@ -14,7 +13,6 @@ test(`
   const result1 = newFn('foo')
   const result2 = newFn('bar')
 
-  expect(newFn).toBeFunction()
   expect(result1).toBe('foo')
   expect(result2).toBe('bar')
   expect(getter).toBeCalledTimes(1)
