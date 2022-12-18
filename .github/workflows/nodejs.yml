@@ -24,4 +24,3 @@ jobs:
       env:
         CI: true
     - run: yarn build
-    - run: yarn bundle
