@@ -1,12 +1,12 @@
 export function lazy<T>(getter: () => T): () => T {
-  let resultExists = false
-  let result: T
+  let exists = false
+  let value: T
 
   return () => {
-    if (!resultExists) {
-      result = getter()
-      resultExists = true
+    if (!exists) {
+      value = getter()
+      exists = true
     }
-    return result
+    return value
   }
 }
