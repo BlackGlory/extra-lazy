@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/BlackGlory/extra-lazy/compare/v1.3.1...v2.0.0) (2023-01-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* CommonJS => ESM
+* ES2018 => ES2021
+
+### Features
+
+* add `weakLazy` ([40db310](https://github.com/BlackGlory/extra-lazy/commit/40db310086b97dad8cbf7462d0b7fe2fd8430ae4))
+
+
+* commonjs => esm ([62b11cd](https://github.com/BlackGlory/extra-lazy/commit/62b11cd17119a71ded65813fd74ad50c677db519))
+
 ### [1.3.1](https://github.com/BlackGlory/extra-lazy/compare/v1.3.0...v1.3.1) (2022-08-11)
 
 
