@@ -30,6 +30,11 @@ Create a value lazily.
 which implicitly has memoization,
 because the evaluation will only be performed once.
 
+### weakLazy
+```ts
+function weakLazy<T extends object>(getter: () => T): () => T
+```
+
 ### lazyFunction
 ```ts
 function lazyFunction<Result, Args extends any[]>(
