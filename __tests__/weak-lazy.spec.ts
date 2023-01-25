@@ -1,4 +1,5 @@
-import { weakLazy } from '@src/weak-lazy'
+import { weakLazy } from '@src/weak-lazy.js'
+import { jest } from '@jest/globals'
 
 test('weakLazy', () => {
   const getter = jest.fn(() => ['value'])

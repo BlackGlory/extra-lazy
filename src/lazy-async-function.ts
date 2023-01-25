@@ -1,4 +1,4 @@
-import { lazy } from './lazy'
+import { lazy } from './lazy.js'
 
 export function lazyAsyncFunction<Result, Args extends any[]>(
   getter: () => PromiseLike<(...args: Args) => Result>

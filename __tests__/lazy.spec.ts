@@ -1,4 +1,5 @@
-import { lazy } from '@src/lazy'
+import { lazy } from '@src/lazy.js'
+import { jest } from '@jest/globals'
 
 test('lazy<T>(getter: () => T): () => T', () => {
   const value = 'value'

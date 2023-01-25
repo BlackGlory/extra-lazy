@@ -1,4 +1,4 @@
-import { lazy } from './lazy'
+import { lazy } from './lazy.js'
 
 export function lazyFunction<Result, Args extends any[]>(
   getter: () => (...args: Args) => Result

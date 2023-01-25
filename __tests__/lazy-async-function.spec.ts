@@ -1,4 +1,5 @@
-import { lazyAsyncFunction } from '@src/lazy-async-function'
+import { lazyAsyncFunction } from '@src/lazy-async-function.js'
+import { jest } from '@jest/globals'
 
 test(`
   lazyAsyncFunction<Result, Args extends any[]>(

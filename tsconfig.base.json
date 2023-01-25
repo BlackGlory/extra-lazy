@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "target": "ES2021"
-  , "module": "CommonJS"
+  , "module": "NodeNext"
+  , "moduleResolution": "NodeNext"
   , "strict": true
   , "esModuleInterop": true
   , "noUnusedLocals": true
@@ -11,5 +12,9 @@
       "@src/*": ["src/*"]
     , "@test/*": ["__tests__/*"]
     }
+  , "plugins": [
+      { "transform": "typescript-transform-paths" }
+    , { "transform": "typescript-transform-paths", "afterDeclarations": true }
+    ]
   }
 }

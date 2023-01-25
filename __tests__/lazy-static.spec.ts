@@ -1,5 +1,7 @@
-import { lazyStatic, withLazyStatic } from '@src/lazy-static'
+import { lazyStatic, withLazyStatic } from '@src/lazy-static.js'
 import { getError } from 'return-style'
+import { pass } from '@blackglory/prelude'
+import { jest } from '@jest/globals'
 
 describe('lazyStatic', () => {
   test('multiple lazyStatic calls', () => {
@@ -23,8 +25,8 @@ describe('lazyStatic', () => {
   })
 
   test('nested lazyStatic calls', () => {
-    const getter1 = jest.fn(text => text)
-    const getter2 = jest.fn(text => text)
+    const getter1 = jest.fn((text: string) => text)
+    const getter2 = jest.fn((text: string) => text)
     const fn = jest.fn((text: string) => {
       return lazyStatic(() => getter2(lazyStatic(() => getter1(text)).repeat(2)))
     })
@@ -102,7 +104,7 @@ describe('lazyStatic', () => {
   })
 
   test('throws Error when `lazyStatic` is called outside `withLazyStatic`', () => {
-    const getter = () => {}
+    const getter = pass
 
     const err = getError(() => lazyStatic(getter))
 
