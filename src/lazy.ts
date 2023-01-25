@@ -2,7 +2,7 @@ export function lazy<T>(getter: () => T): () => T {
   let resultExists = false
   let result: T
 
-  return function () {
+  return () => {
     if (!resultExists) {
       result = getter()
       resultExists = true
