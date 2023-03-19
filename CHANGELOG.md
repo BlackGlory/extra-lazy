@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.1](https://github.com/BlackGlory/extra-lazy/compare/v2.0.0...v2.0.1) (2023-03-19)
+
+
+### Bug Fixes
+
+* dependencies ([57ec261](https://github.com/BlackGlory/extra-lazy/commit/57ec261a654e56202a170c2866b824bb1e70ea2c))
+
 ## [2.0.0](https://github.com/BlackGlory/extra-lazy/compare/v1.3.1...v2.0.0) (2023-01-25)
 
 
