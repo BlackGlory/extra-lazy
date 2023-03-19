@@ -1,6 +1,6 @@
 import { lazyStatic, withLazyStatic } from '@src/lazy-static.js'
 import { getError } from 'return-style'
-import { pass } from '@blackglory/prelude'
+import { pass } from '@blackglory/pass'
 import { jest } from '@jest/globals'
 
 describe('lazyStatic', () => {
