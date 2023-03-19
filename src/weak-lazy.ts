@@ -1,4 +1,4 @@
-import { isntUndefined } from '@blackglory/types'
+import { isntUndefined } from 'extra-utils'
 
 export function weakLazy<T extends object>(getter: () => T): () => T {
   let ref: WeakRef<T> | undefined
